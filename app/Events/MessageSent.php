@@ -29,8 +29,11 @@ class MessageSent implements ShouldBroadcast
     public function broadcastWith(): array
     {
         return [
+            'message_id' => $this->message->id,
             'message' => $this->message,
-            'user' => $this->user,
+            'user_id' => $this->user->id,
+            'user_name' => $this->user->name,
+            'created_at' => $this->message->created_at->toDateTimeString(),
         ];
     }
 
@@ -42,7 +45,7 @@ class MessageSent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new Channel('chat'),
+            new PresenceChannel('chat')
         ];
     }
 }

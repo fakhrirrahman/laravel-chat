@@ -5,28 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @vite('resources/css/app.css')
     <title>Document</title>
 </head>
 
 <body>
-    @vite('resources/js/app.js')
-    {{ Auth::id() }}
-
+    <h1 class="text-3xl font-bold underline">
+        Hello world!
+    </h1>
 </body>
-<script>
-    // setTimeout(() => {
-    //     window.Echo.channel('chat')
-    //     .listen('MessageSent', (e) => {
-    //         console.log('MessageSent event received:', e);
-    //     });
-    // }, 200);
 
-    setTimeout(() => {
-        window.Echo.private('private-channel.user.{{ Auth::id() }}')
-            .listen('PrivateNotification', (e) => {
-                console.log('MessageSent event received:', e);
-            });
-    }, 1000);
-</script>
 
 </html>
