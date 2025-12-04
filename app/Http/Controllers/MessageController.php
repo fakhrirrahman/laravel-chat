@@ -11,7 +11,7 @@ class MessageController extends Controller
     public function index()
     {
         $messages = Message::with('user')->latest()->take(50)->get()->reverse();
-        return view('chat', compact('messages'));
+        return view('chat.index', compact('messages'));
     }
 
     public function send(Request $request)
@@ -25,7 +25,7 @@ class MessageController extends Controller
             'message' => $request->message,
         ]);
 
-        broadcast(new MessageSent($messages, auth()->user()))->toOthers();
+        broadcast(new MessageSent($messages))->toOthers();
         return response()->json(['status' => 'Message Sent!']);
     }
 }
