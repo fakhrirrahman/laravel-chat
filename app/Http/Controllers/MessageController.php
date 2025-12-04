@@ -20,12 +20,17 @@ class MessageController extends Controller
             'message' => 'required|string|max:1000',
         ]);
 
-        $messages = Message::create([
+        $message = Message::create([
             'user_id' => auth()->id(),
             'message' => $request->message,
         ]);
 
-        broadcast(new MessageSent($messages))->toOthers();
+        // Load user relationship
+        $message->load('user');
+
+        // Broadcast ke semua user termasuk pengirim
+        broadcast(new MessageSent($message));
+
         return response()->json(['status' => 'Message Sent!']);
     }
 }

@@ -8,7 +8,9 @@
     <div class="py-12">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                <x-chat-box :messages="$messages" />
+                <div data-user-name="{{ auth()->user()->name }}" data-user-id="{{ auth()->user()->id }}">
+                    <x-chat-box :messages="$messages" />
+                </div>
             </div>
         </div>
     </div>
