@@ -11,7 +11,6 @@ export function initializeChat() {
     }
 
     function addMessageToChat(message, userName, isOwnMessage = false) {
-        // Validasi dan sanitasi input
         const safeMessage = message || 'Empty message';
         const safeUserName = userName || 'Unknown User';
         const userInitial = safeUserName.charAt(0).toUpperCase() || '?';
@@ -59,9 +58,7 @@ export function initializeChat() {
             )} online`;
         })
         .listen("MessageSent", (e) => {
-            console.log('Received message event:', e);
             
-            // Parse message text dari object atau string
             let messageText;
             if (typeof e.message === 'string') {
                 messageText = e.message;
@@ -73,16 +70,11 @@ export function initializeChat() {
             
             const userName = e.user_name || 'Unknown User';
             
-            console.log('Parsed message text:', messageText);
-            console.log('User name:', userName);
-            
-            // Extra validation
             if (!messageText || messageText === 'undefined') {
                 console.error('Invalid message text received:', messageText);
                 return;
             }
             
-            // Cek apakah ini pesan dari user sendiri
             const currentUserId = document.querySelector('[data-user-id]')?.getAttribute('data-user-id');
             const isOwnMessage = currentUserId && parseInt(e.user_id) === parseInt(currentUserId);
             
@@ -110,7 +102,6 @@ export function initializeChat() {
             
             if (response.ok) {
                 input.value = "";
-                // Pesan akan ditampilkan melalui WebSocket broadcast
             } else {
                 console.error('Failed to send message');
             }
