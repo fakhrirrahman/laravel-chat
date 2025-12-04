@@ -25,11 +25,7 @@ class MessageController extends Controller
             'message' => $request->message,
         ]);
 
-        // Load user relationship
-        $message->load('user');
-
-        // Broadcast ke semua user termasuk pengirim
-        broadcast(new MessageSent($message));
+        broadcast(new MessageSent($message))->toOthers();
 
         return response()->json(['status' => 'Message Sent!']);
     }
