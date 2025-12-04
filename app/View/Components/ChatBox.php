@@ -5,22 +5,16 @@ namespace App\View\Components;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-
 class ChatBox extends Component
 {
     public $messages;
-    /**
-     * Create a new component instance.
-     */
-    public function __construct($messages)
+
+    public function __construct($messages = null) // beri default null
     {
-        $this->messages = $messages;
+        $this->messages = $messages ?? collect(); // jika null, pakai collection kosong
     }
 
-    /**
-     * Get the view / contents that represent the component.
-     */
-    public function render(): View|Closure|string
+    public function render()
     {
         return view('components.chat-box');
     }
