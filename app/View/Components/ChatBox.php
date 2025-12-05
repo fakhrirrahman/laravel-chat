@@ -8,10 +8,12 @@ use Illuminate\View\Component;
 class ChatBox extends Component
 {
     public $messages;
+    public $users;
 
-    public function __construct($messages = null) // beri default null
+    public function __construct($messages = null, $users = null) // beri default null
     {
         $this->messages = $messages ?? collect(); // jika null, pakai collection kosong
+        $this->users = $users ?? collect();
     }
 
     public function render()

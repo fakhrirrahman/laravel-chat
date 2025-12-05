@@ -42,16 +42,24 @@ export function initializeChat() {
 
     scrollToBottom();
 
+    let onlineUsers = [];
+
     Echo.join("chat")
         .here((users) => {
+            onlineUsers = users.map(u => u.id);
+            window.onlineUsers = onlineUsers;
             onlineCount.textContent = `${users.length} online`;
         })
         .joining((user) => {
+            onlineUsers.push(user.id);
+            window.onlineUsers = onlineUsers;
             onlineCount.textContent = `${
                 parseInt(onlineCount.textContent) + 1
             } online`;
         })
         .leaving((user) => {
+            onlineUsers = onlineUsers.filter(id => id !== user.id);
+            window.onlineUsers = onlineUsers;
             onlineCount.textContent = `${Math.max(
                 0,
                 parseInt(onlineCount.textContent) - 1

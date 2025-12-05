@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('chat.index')" :active="request()->routeIs('chat.index')">
                         {{ __('Chat') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('video-call.index')" :active="request()->routeIs('video-call.index')">
+                        {{ __('Video Call') }}
+                    </x-nav-link>
                 </div>
             </div>
 
